@@ -1,0 +1,25 @@
+ALBERO DEI COMPONENTI DEL PROGETTO BURGER BUILDER
+
+App: definire un layout base, che sarà un HEADER e un MAIN (dove ci sarà la nostra creazione dell'hamburger)
+Layout (avrà un paio di componenti nestati, per la navigazione del sito e per il contenuto)    
+    Toolbar
+        Drawer Toggle
+        Logo
+        Navigation Items
+    SideDrawer
+        Logo
+        Navigation Items
+    Backdrop
+    { props.children}
+        BurgerBuilder   (STATEFUL)
+            BuildControls
+                BuildControl
+                BuildControl
+                ...
+                OrderButton
+            Burger
+                Ingredient
+                Ingredient
+                ...
+            Modal (per il checkout)
+                {props.children}

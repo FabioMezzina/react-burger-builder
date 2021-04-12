@@ -1,0 +1,15 @@
+STATE DEL PROGETTO BURGER BUILDER
+
+ingredients
+    {
+        meat: 2,
+        cheese: 1,
+        ...
+    }
+
+purchased: true
+
+totalPrice: 12.45
+
+
+Lo gestiremo nel componente BurgerBuilder! Perchè è relazionato alla creazione del burger (ingredienti, acquistato, prezzo totale). Ha senso che sia gesito nel BurgerBuilder.

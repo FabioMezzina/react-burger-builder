@@ -1,0 +1,60 @@
+- Creata l'applicazione
+
+----------------------------------- SETUP INIZIALE DEL PROGETTO -----------------------------------
+
+- Eject per abilitare i CSS MODULES
+  - in webpack.config.dev e webpack.config.prod aggiungo alle options del css-loader
+      modules: true,
+      localIdentName: '[name]__[local]__[hash:base64:5]',
+
+- Pulizia progetto: rimuovo App.css, logo.svg, className in App.js e contenuto del componente App.js
+
+- Aggiunto Google Font Open SANS direttamente con CDN in ./public/index.html
+
+- Creo la mia alberatura per i componenti:                  // da aggiornare ad ogni nuovo componente
+    ./components                                    -> per i stateless components
+        ./Layout
+            Layout.js                               -> sarà il mio componente di layout del progetto.
+            Layout.css
+        ./Burger                                    -> sarà il componente dell'hamburger che verrà composto
+            Burger.js
+            ./BurgerIngredient                      -> componente di ingrediente dell'hamburger
+                BurgerIngredient.js
+                BurgerIngredient.css
+    ./containers                                    -> per i stateful components
+
+    ./hoc                                           -> per gli higher order components
+        ./Aux.js                                    -> wrapper per il layout
+
+
+- Creo il componente di layout che implementerà poi la toolbar e il burger builder
+    Utilizzo un HOC per fare il wrapping delle due sezioni che mi servono
+    Nel main ci sarà props.children, che di base ritornerà solo il contenuto del compoenente <Layout> da App.js
+
+
+----------------------------------- BURGER BUILDER COMPONENT -----------------------------------
+
+Questo sarà un container (stateful component) in quanto gestiremo lo state qui dentro!
+Conterrà due componenti, wrappati nel nostro <Aux>
+Il primo sarà Burger, componente che conterrà l'hamburger in costruzione
+Il secondo sarà un Burger Controller, dove decideremo gli ingredienti
+
+Aggiungo lo state, che conterrà per il momento gli ingredienti (ingredients). Questi ingredients verranno popolati dall'utente dal controller
+
+
+----------------------------------- BURGER COMPONENT -----------------------------------
+
+Questo componente conterrà a sua volta il componente BurgerIngredient.
+In Burger.css ci sono gli stili per renderizzare gli strati dell'hamburger.
+avrò un wrapper in cui andrò a renderizzare n componenti BurgerIngredient in base a quelli selezionati dall'utente
+
+Trasformo l'oggetto ingredients in un array di BurgerIngredient (la procedura è nei commenti del componente)
+In questo modo posso rendere dinamico l'output del componente in base agli ingredients che arrivano
+
+
+----------------------------------- BURGERINGREDIENT COMPONENT -----------------------------------
+
+Ritornerà un JSX con una classe css che determinerà l'aspetto del componente (carne, insalata, ecc...).
+Questa classe verrà impostata dinamicamente con uno switch sulla proprietà this.props.type che mi aspetto verrà passata al componente.
+
+Aggiungo il PropTypes per la validazione dell'ingrediente, facendo il chain di .string e .isRequired
