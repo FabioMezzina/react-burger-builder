@@ -12,18 +12,25 @@ const burger = ( props ) => {
    * Creo un array con le key (stringhe ingrediente) dell'oggetto ingredients e faccio il map per creare un array di n elementi
    * dove n è uguale al value corrispettivo alla key in ingredients. Faccio il map su questo array per avere n return di BurgerIngredient!
    */
-  const ingredientsArr = Object.keys(props.ingredients).map(igKey => {
-    return [...Array(props.ingredients[igKey])].map((_, i) => {
-      return <BurgerIngredient key={igKey + i} type={igKey}/>;
+  let ingredientsArr = Object.keys(props.ingredients)
+    .map(igKey => {
+      return [...Array(props.ingredients[igKey])]
+        .map((_, i) => {
+          return <BurgerIngredient key={igKey + i} type={igKey}/>;
+        });
+    })
+    .reduce((arr, el) => {
+      return arr.concat(el);
     });
-  });
+  
+  if(ingredientsArr.length === 0) {
+    ingredientsArr = <p>Please start adding ingredients!</p>
+  }
   return (
     <div className={classes.Burger}>
       <BurgerIngredient type="bread-top" />
       {ingredientsArr}
       <BurgerIngredient type="bread-bottom" />
-      {/* <BurgerIngredient type="cheese" />
-      <BurgerIngredient type="meat" /> */}
     </div>
   );
 }

@@ -21,6 +21,12 @@
             ./BurgerIngredient                      -> componente di ingrediente dell'hamburger
                 BurgerIngredient.js
                 BurgerIngredient.css
+            ./BuildControls                         -> componene per la scelta degli ingredienti
+                BuildControls.js
+                BuildControls.css
+                ./BuildControl                      -> 
+                    BuildControls.js
+                    BuildControls.css
     ./containers                                    -> per i stateful components
 
     ./hoc                                           -> per gli higher order components
@@ -41,6 +47,10 @@ Il secondo sarà un Burger Controller, dove decideremo gli ingredienti
 
 Aggiungo lo state, che conterrà per il momento gli ingredienti (ingredients). Questi ingredients verranno popolati dall'utente dal controller
 
+Aggiungo le funzioni per aggiungere e rimuovere ingredienti. Passo queste funzioni al componente BuildControls.
+Il componente BuildControls passerà queste funzioni ai componenti BuildControl utilizzando il type con cui questi componenti vengono creati
+In queste funzioni gestisco l'aggiornamento del prezzo totale servendomi di un oggetto costante di prezzi per singolo ingrediente.
+
 
 ----------------------------------- BURGER COMPONENT -----------------------------------
 
@@ -51,6 +61,9 @@ avrò un wrapper in cui andrò a renderizzare n componenti BurgerIngredient in b
 Trasformo l'oggetto ingredients in un array di BurgerIngredient (la procedura è nei commenti del componente)
 In questo modo posso rendere dinamico l'output del componente in base agli ingredients che arrivano
 
+Anche se avrò 0 ingredienti, il mio array sarà composto da n array (vuoti). Per fare un check sulla lunghezza, faccio un "flat" dell'array con il metodo reduce.
+In questo moddo, per 0 ingredienti, avrò un array di 0 elementi! Al suo posto, dopo un if, metterò un paragrafo.
+
 
 ----------------------------------- BURGERINGREDIENT COMPONENT -----------------------------------
 
@@ -58,3 +71,17 @@ Ritornerà un JSX con una classe css che determinerà l'aspetto del componente (
 Questa classe verrà impostata dinamicamente con uno switch sulla proprietà this.props.type che mi aspetto verrà passata al componente.
 
 Aggiungo il PropTypes per la validazione dell'ingrediente, facendo il chain di .string e .isRequired
+
+
+----------------------------------- BUILDCONTROLS COMPONENT -----------------------------------
+
+Questo componente contrrà più componenti singoli (BuildControl) che permetteranno l'aggiunta o la rimozione degli ingredienti.
+Creerò un array di oggetti con label e type, e loopandoci sopra creo un array di componenti BuildControl per gli ingredienti.
+
+
+----------------------------------- BUILDCONTROL COMPONENT -----------------------------------
+
+Componente riutilizzabile per aggiungere o rimuovere un ingrediente. Avrà una label (dinamica in base al nome dell'ingrediente) e due bottoni.
+Un bottone per aggiungere (more) ed uno per rimuovere (less) ingredienti.
+
+Aggiungo ai button le funzioni per aggiungere/rimuovere ingredienti
