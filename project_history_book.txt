@@ -13,24 +13,36 @@
 
 - Creo la mia alberatura per i componenti:                  // da aggiornare ad ogni nuovo componente
     ./components                                    -> per i stateless components
-        ./Layout
-            Layout.js                               -> sarà il mio componente di layout del progetto.
+        ./Layout                                        -> sarà il mio componente di layout del progetto.
+            Layout.js
             Layout.css
-        ./Burger                                    -> sarà il componente dell'hamburger che verrà composto
+        ./UI
+            ./Backdrop                                      -> componente backdrop per la modale d'acquisto
+                Backdrop.js
+                Backdrop.css
+            ./Modal                                         -> componente per la modale d'acquisto
+                Modal.js
+                Modal.css
+        ./Burger                                        -> sarà il componente dell'hamburger che verrà composto
             Burger.js
-            ./BurgerIngredient                      -> componente di ingrediente dell'hamburger
+            ./BurgerIngredient                              -> componente di ingrediente dell'hamburger
                 BurgerIngredient.js
                 BurgerIngredient.css
-            ./BuildControls                         -> componene per la scelta degli ingredienti
+            ./BuildControls                                 -> componente per la scelta degli ingredienti
                 BuildControls.js
                 BuildControls.css
-                ./BuildControl                      -> 
+                ./BuildControl                                  -> componente per il controllo singolo di ogni ingrediente
                     BuildControls.js
                     BuildControls.css
+            ./OrderSummary                                  -> componente che mostra la lista degli ingredienti selezionati
+                OrderSummary.js
+                OrderSummary.css
     ./containers                                    -> per i stateful components
+        ./BurgerBuilder                                 -> componente generale del mio progetto, gestisco qui dentro lo state !
+            BurgerBuilde.js
 
-    ./hoc                                           -> per gli higher order components
-        ./Aux.js                                    -> wrapper per il layout
+    ./hoc                                           -> folder per gli higher order components
+        ./Aux.js                                        -> wrapper per il layout
 
 
 - Creo il componente di layout che implementerà poi la toolbar e il burger builder
@@ -38,7 +50,7 @@
     Nel main ci sarà props.children, che di base ritornerà solo il contenuto del compoenente <Layout> da App.js
 
 
------------------------------------ BURGER BUILDER COMPONENT -----------------------------------
+----------------------------------- BURGER BUILDER COMPONENT ( STATEFUL ) -----------------------------------
 
 Questo sarà un container (stateful component) in quanto gestiremo lo state qui dentro!
 Conterrà due componenti, wrappati nel nostro <Aux>
@@ -50,6 +62,9 @@ Aggiungo lo state, che conterrà per il momento gli ingredienti (ingredients). Q
 Aggiungo le funzioni per aggiungere e rimuovere ingredienti. Passo queste funzioni al componente BuildControls.
 Il componente BuildControls passerà queste funzioni ai componenti BuildControl utilizzando il type con cui questi componenti vengono creati
 In queste funzioni gestisco l'aggiornamento del prezzo totale servendomi di un oggetto costante di prezzi per singolo ingrediente.
+
+Aggiungo funzione per gestire lo state.purchasable (utilizzato nel BuildControls) per attivare il bottone ORDER NOW
+Aggiungo funzione per gestire lo state.purchasing per mostrare/nascondere il componente Modal
 
 
 ----------------------------------- BURGER COMPONENT -----------------------------------
@@ -78,6 +93,8 @@ Aggiungo il PropTypes per la validazione dell'ingrediente, facendo il chain di .
 Questo componente contrrà più componenti singoli (BuildControl) che permetteranno l'aggiunta o la rimozione degli ingredienti.
 Creerò un array di oggetti con label e type, e loopandoci sopra creo un array di componenti BuildControl per gli ingredienti.
 
+Aggiungo bottone ORDER NOW che si attiva solo se il prezzo degli ingredienti è maggiore di zero (gestito con lo state di BurgerBuilder)
+
 
 ----------------------------------- BUILDCONTROL COMPONENT -----------------------------------
 
@@ -85,3 +102,17 @@ Componente riutilizzabile per aggiungere o rimuovere un ingrediente. Avrà una l
 Un bottone per aggiungere (more) ed uno per rimuovere (less) ingredienti.
 
 Aggiungo ai button le funzioni per aggiungere/rimuovere ingredienti
+
+
+----------------------------------- MODAL -----------------------------------
+
+Questo è un componente wrapper che ritornerà qualsiasi cosa verrà messa al suo interno con props.children
+Si aprirà cliccando sul bottone ORDER NOW e verrà mostrata condizionalmente tramite props.purchasing
+Mostrare/nascondere la modale viene gestito tramite style dinamico inline nel componente
+
+
+----------------------------------- BACKDROP -----------------------------------
+
+Questo è un componente che, condizionalmente ad una props.show, renderizzerà un backdrop oppure null.
+Di base viene mostrato con la modale, e scompare con essa
+Avrà associato all'evento click una funzione che chiuderà sia la modale che il backdrop (entrambi pilotati dalla proprietà show)

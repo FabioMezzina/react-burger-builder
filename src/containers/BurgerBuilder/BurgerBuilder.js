@@ -6,6 +6,8 @@
 import React, { Component } from 'react';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Aux from '../../hoc/Aux';
 
 const INGREDIENT_PRICES = {
@@ -19,13 +21,17 @@ class BurgerBuilder extends Component {
   state = {
     // ingredients state
     ingredients: {
-      salad: 1,
-      bacon: 1,
-      cheese: 4,
-      meat: 2,
+      salad: 0,
+      bacon: 0,
+      cheese: 0,
+      meat: 0,
     },
     // price
     totalPrice: 4,
+    // purchasable (per attivare il bottone ORDER NOW)
+    purchasable: false,
+    // purchasing (per attivare il componente Modal)
+    purchasing: false,
   }
 
   // aggiungo un ingrediente prendendo il vecchio numero e sommandoci uno
@@ -47,6 +53,8 @@ class BurgerBuilder extends Component {
       ingredients: updatedIngredients,
       totalPrice: newPrice,
     });
+
+    this.updatePurchaseState(updatedIngredients);
   }
 
   // rimuovo un ingrediente prendendo il vecchio numero e sottraendoci uno
@@ -71,16 +79,44 @@ class BurgerBuilder extends Component {
       ingredients: updatedIngredients,
       totalPrice: newPrice,
     });
+    this.updatePurchaseState(updatedIngredients);
+  }
+
+  // imposto la proprietà purchasable dello state per decidere se il mio bottone per l'ordine sarà o meno cliccabile
+  updatePurchaseState = (ingredients) => {
+    const sum = Object.keys(ingredients).map(igKey => {
+      return ingredients[igKey];
+    }).reduce((s, c) => {
+        return s + c;
+      }, 0);
+    
+    this.setState({ purchasable: sum > 0 });
+  }
+
+  // imposto la proprietà purchasing dello state a true per mostrare il componente Modal
+  purchaseHandler = () => {
+    this.setState({purchasing: true});
+  }
+
+  // imposto la proprietà purchasing dello state a false per nascondere il componente Modal
+  purchaseCancelHandler = () => {
+    this.setState({purchasing: false});
   }
 
   // render hook
   render() {    
     return (
       <Aux>
+        <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+          <OrderSummary ingredients={this.state.ingredients}/>
+        </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls 
+          purchasable={this.state.purchasable}
+          price={this.state.totalPrice}
           ingredientAdded={this.addIngredientHandler}
           ingredientRemoved={this.removeIngredientHandler}
+          ordered={this.purchaseHandler}
         />
       </Aux>
     );
