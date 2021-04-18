@@ -16,6 +16,10 @@
         ./Layout                                        -> sarà il mio componente di layout del progetto.
             Layout.js
             Layout.css
+        ./Navigation
+            ./Toolbar                                       -> Componente per la toolbar
+                Toolbar.js
+                Toolbar.css
         ./UI
             ./Backdrop                                      -> componente backdrop per la modale d'acquisto
                 Backdrop.js
@@ -23,6 +27,9 @@
             ./Modal                                         -> componente per la modale d'acquisto
                 Modal.js
                 Modal.css
+            ./Button                                        -> Componente custo per un button dinamico
+                Button.js
+                Button.css
         ./Burger                                        -> sarà il componente dell'hamburger che verrà composto
             Burger.js
             ./BurgerIngredient                              -> componente di ingrediente dell'hamburger
@@ -37,6 +44,9 @@
             ./OrderSummary                                  -> componente che mostra la lista degli ingredienti selezionati
                 OrderSummary.js
                 OrderSummary.css
+        ./Logo                                          -> componente per il mio logo
+            Logo.js
+            Logo.css
     ./containers                                    -> per i stateful components
         ./BurgerBuilder                                 -> componente generale del mio progetto, gestisco qui dentro lo state !
             BurgerBuilde.js
@@ -116,3 +126,23 @@ Mostrare/nascondere la modale viene gestito tramite style dinamico inline nel co
 Questo è un componente che, condizionalmente ad una props.show, renderizzerà un backdrop oppure null.
 Di base viene mostrato con la modale, e scompare con essa
 Avrà associato all'evento click una funzione che chiuderà sia la modale che il backdrop (entrambi pilotati dalla proprietà show)
+
+
+----------------------------------- BUTTON -----------------------------------
+
+Aggiunto un componente Button custom che prende stile dinamico dipendente dalla proprietà props.btnStyle
+Ha un evento clicked a cui passare una funzione
+Mostra come testo props.children
+
+
+----------------------------------- TOOLBAR -----------------------------------
+
+Componente toolbar, sarà un header con all'interno un logo, un pulsante menu, ed una lista di link navigabili
+Sarà presente in ogni pagina, quindi la inserirò come componente all'interno del mio Layout
+
+
+----------------------------------- LOGO -----------------------------------
+
+Componente per il logo dell'applicazione. Sarà un div contenente un img.
+L'applicazione in produzione non sarà nella stessa directory che utilizzo in sviluppo!!
+Quindi per utilizzare un asset, lo importo in js, e sarà una stringa al path che cambierà in produzione (ci pensa webpack).
