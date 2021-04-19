@@ -20,6 +20,15 @@
             ./Toolbar                                       -> Componente per la toolbar
                 Toolbar.js
                 Toolbar.css
+            ./NavigationItems                               -> Componente per i link della navbar
+                NavigationItems.js
+                NavigationItems.css
+                ./NavigationItem                                -> Componente per il link singolo della navbar
+                    NavigationItem.js
+                    NavigationItem.css
+            ./SideDrawer                                    -> Componente per il menù laterale
+                SideDrawer.js
+                SideDrawer.css
         ./UI
             ./Backdrop                                      -> componente backdrop per la modale d'acquisto
                 Backdrop.js
@@ -146,3 +155,22 @@ Sarà presente in ogni pagina, quindi la inserirò come componente all'interno d
 Componente per il logo dell'applicazione. Sarà un div contenente un img.
 L'applicazione in produzione non sarà nella stessa directory che utilizzo in sviluppo!!
 Quindi per utilizzare un asset, lo importo in js, e sarà una stringa al path che cambierà in produzione (ci pensa webpack).
+
+
+----------------------------------- NAVIGATIONITEMS -----------------------------------
+
+Componente che conterrà i vari link della barra di navigazione
+
+
+----------------------------------- NAVIGATIONITEM -----------------------------------
+
+Componente di un singolo link di navigazione.
+Accetterà una props.link per generare dinamicamente un link per href.
+Accetterà la props.active per settare dinamicamente una classe .active di stile (tipo pulsante appena premuto)
+
+
+----------------------------------- SIDEDRAWER -----------------------------------
+
+Componente per il menù a tendina.
+Comparirà cliccando sul pulsante MENU. Appare e scompare con classi css dinamiche.
+L'altezza del logo viene gestita dalla classe .Logo su un div wrapper per il logo. (La stessa cosa ho fatto per la toolbar)
