@@ -13,7 +13,7 @@
 
 - Creo la mia alberatura per i componenti:                  // da aggiornare ad ogni nuovo componente
     ./components                                    -> per i stateless components
-        ./Layout                                        -> sarà il mio componente di layout del progetto.
+        ./Layout                                        -> sarà il mio componente di layout del progetto. Gestisto lo state!
             Layout.js
             Layout.css
         ./Navigation
@@ -29,6 +29,9 @@
             ./SideDrawer                                    -> Componente per il menù laterale
                 SideDrawer.js
                 SideDrawer.css
+                ./DrawerToggle                                  -> Componente pulsante hamburger
+                    DrawerToggle.js
+                    DrawerToggle.css
         ./UI
             ./Backdrop                                      -> componente backdrop per la modale d'acquisto
                 Backdrop.js
@@ -174,3 +177,9 @@ Accetterà la props.active per settare dinamicamente una classe .active di stile
 Componente per il menù a tendina.
 Comparirà cliccando sul pulsante MENU. Appare e scompare con classi css dinamiche.
 L'altezza del logo viene gestita dalla classe .Logo su un div wrapper per il logo. (La stessa cosa ho fatto per la toolbar)
+
+
+----------------------------------- DRAWERTOGGLE -----------------------------------
+
+Questo componente è un hamburger menu toggler.
+Al click viene cambiato lo state del componente Layout, e farà apparire il menù laterale
